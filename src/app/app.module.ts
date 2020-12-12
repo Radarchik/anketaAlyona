@@ -6,7 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
 import { Page1Component } from './page1/page1.component';
 import { Page2Component } from './page2/page2.component';
-import {MatTableModule} from '@angular/material';
+import {MatPaginatorModule, MatTableModule} from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -22,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     CustomMaterialModule,
     ReactiveFormsModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

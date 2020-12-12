@@ -1,0 +1,50 @@
+<div class="mainPage2">
+  <div class="leftPage2"><img id="girl" src="assets/girl.jpg"></div>
+
+  <div class="rightPage2">
+          <table mat-table [dataSource]="dataSource" matSort class="wide-table">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> No</th>
+              <td mat-cell *matCellDef="let question;">{{question.id}}</td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Действие</th>
+              <td mat-cell *matCellDef="let question"> {{question.text}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="estimate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Твое отношение</th>
+              <td mat-cell *matCellDef="let element">
+
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <mat-button-toggle value="bold">0</mat-button-toggle>
+                  <mat-button-toggle value="underline">1</mat-button-toggle>
+                  <mat-button-toggle value="italic">2</mat-button-toggle>
+                  <mat-button-toggle value="underline">3</mat-button-toggle>
+                  <mat-button-toggle value="italic">4</mat-button-toggle>
+                  <mat-button-toggle value="underline">5</mat-button-toggle>
+                </mat-button-toggle-group>
+
+              </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+    <mat-paginator [pageSizeOptions]="[5]"  showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+<div class="send-result">
+  <button mat-raised-button color="accent" id="continue-button" (click)="sendResult()">
+    Отправить результаты
+  </button>
+</div>
+
