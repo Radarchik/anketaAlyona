@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from 
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import {Question} from '../model/question';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-page2',
@@ -16,6 +17,7 @@ export class Page2Component implements OnInit, AfterViewInit  {
   displayedColumns: string[] = ['number', 'name', 'estimate'];
 
   constructor(
+    private snackBar: MatSnackBar,
     private http: HttpClient) { }
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
@@ -42,29 +44,28 @@ export class Page2Component implements OnInit, AfterViewInit  {
   }
 
   sendResult() {
-    const body = {
-      "key": "50b079489c5aa63075779f9e75929bf7-us7",
-      "message": {
-        "from_email": "t.synovych@gmail.com",
-        "to": [
-          {
-            "email": "t.synovych@gmail.com",
-            "name": "Taras",
-            "type": "to"
-          },
-          {
-            "email": "letsa@ya.ru",
-            "name": "Ivan",
-            "type": "to"
-          }
-        ],
-        "autotext": "true",
-        "subject": "SUBJECT HERE!",
-        "html": "YOUR EMAIL CONTENT HERE! YOU CAN USE HTML!"
-      }
-    };
-    this.http.post('https://5b3943cfcda47d5c7885c5e06e3d8361.m.pipedream.net', body).subscribe(response => console.log(response));
+    if (this.questions.every(question => question.estimate)) {
+      const body = JSON.stringify(this.questions);
+      this.http.post('https://5b3943cfcda47d5c7885c5e06e3d8361.m.pipedream.net', body).subscribe(response => console.log(response));
+    } else {
+      this.openSnackBar();
+    }
 
   }
 
+  onValChange(value: any, question: Question) {
+    console.log(value);
+    console.log(question);
+    question.estimate = value;
+    console.log(this.questions);
+  }
+
+  openSnackBar() {
+    const unsignedQ = this.questions.filter(question => question.estimate === undefined);
+    const message = 'Остались вопросы: ' + unsignedQ.map(q => q.id);
+    const action = 'Attention';
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
 }
