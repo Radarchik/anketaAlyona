@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-page1',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page1.component.css']
 })
 export class Page1Component implements OnInit {
-
+  @Output() pageToShowEvent = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
   }
 
+  goToPage2() {
+    this.pageToShowEvent.emit(2);
+  }
 }

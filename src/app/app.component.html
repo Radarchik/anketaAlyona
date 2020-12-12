@@ -17,4 +17,5 @@
 </form>
 
 
-<app-page1 *ngIf="pageToShow ===1"></app-page1>
+<app-page1 *ngIf="pageToShow ===1" (pageToShowEvent)="pageEventHandler($event)"></app-page1>
+<app-page2 *ngIf="pageToShow ===2" (pageToShowEvent)="pageEventHandler($event)"></app-page2>

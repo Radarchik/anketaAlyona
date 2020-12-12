@@ -11,10 +11,9 @@ export class AppComponent implements OnInit, OnDestroy {
   startForm: FormGroup;
 
   rightPassword = '777';
-  pageToShow: number;
+  public pageToShow: number;
 
-  constructor(
-    private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -23,6 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
       password: ['', this.passWordValidator]
     });
 
+  }
+
+  pageEventHandler($event: any) {
+    this.pageToShow = $event;
   }
 
   ngOnDestroy(): void {
