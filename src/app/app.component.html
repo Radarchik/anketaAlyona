@@ -1,12 +1,12 @@
 <form [formGroup]="startForm" (submit)="goToPage1()" *ngIf="pageToShow ===0">
   <div class="mainDiv" >
-    <h2>Малышка, привет</h2>
+    <h1>Малышка, привет</h1>
 
-    <h3> Для доступа к анкете введи пароль:</h3>
+    <h3> Для доступа введи пароль:</h3>
 
     <mat-form-field appearance="outline" autocomplete="off">
       <mat-label>Пароль:</mat-label>
-      <input matInput formControlName="password">
+      <input matInput formControlName="password" autocomplete="off">
       <mat-error *ngIf="startForm.get('password').value !== rightPassword">Неправильный пароль!</mat-error>
     </mat-form-field>
 

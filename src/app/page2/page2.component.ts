@@ -1,12 +1,14 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
+import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import {Question} from '../model/question';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CommentDialogComponent} from '../comment-dialog/comment-dialog.component';
 
 @Component({
   selector: 'app-page2',
   templateUrl: './page2.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./page2.component.css']
 })
 export class Page2Component implements OnInit, AfterViewInit  {
@@ -14,13 +16,15 @@ export class Page2Component implements OnInit, AfterViewInit  {
   dataSource: MatTableDataSource<Question>;
   questions: Question[];
 
-  displayedColumns: string[] = ['number', 'name', 'estimate'];
+  displayedColumns: string[] = ['number', 'name', 'estimate', 'comment'];
 
   constructor(
+    public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private http: HttpClient) { }
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  isMobile: boolean;
 
   ngAfterViewInit() {
 
@@ -48,6 +52,7 @@ export class Page2Component implements OnInit, AfterViewInit  {
       const body = JSON.stringify(this.questions);
       this.http.post('https://5b3943cfcda47d5c7885c5e06e3d8361.m.pipedream.net', body).subscribe(response => console.log(response));
     } else {
+      console.log(this.questions);
       this.openSnackBar();
     }
 
@@ -66,6 +71,23 @@ export class Page2Component implements OnInit, AfterViewInit  {
     const action = 'Attention';
     this.snackBar.open(message, action, {
       duration: 3000,
+    });
+  }
+
+  goToComment(question: Question) {
+    this.openDialog(question);
+  }
+
+  openDialog(question: Question) {
+    let confirmDialogRef = this.dialog.open(CommentDialogComponent, {
+      disableClose: true,
+      data: question.comment
+    });
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (result || result === '') {
+        question.comment = result;
+      }
+      confirmDialogRef = null;
     });
   }
 }

@@ -1,0 +1,16 @@
+<div class="main-dialog-div">
+  <mat-form-field appearance="outline" id="productNameField">
+    <mat-label class="mat-label">Комментарий</mat-label>
+    <input matInput autocomplete="off" [(ngModel)]="comment">
+  </mat-form-field>
+
+  <div class="buttons-container">
+
+    <button mat-raised-button color="accent" (click)="onOkClick()"
+            id="dialog-button-save"><span class="button-text">Ок</span></button>
+
+    <button mat-raised-button color="primary"  (click)="onNoClick()"
+            id="dialog-button-close"><span class="button-text">Отмена</span></button>
+  </div>
+</div>
+
