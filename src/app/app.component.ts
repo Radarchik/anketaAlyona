@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {Question} from './model/question';
+import {QuestionsService} from './questions.service';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +12,13 @@ import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@a
 export class AppComponent implements OnInit, OnDestroy {
   public title = 'anketaAlina';
   startForm: FormGroup;
-
+  questions: Question[];
   rightPassword = '777';
   public pageToShow: number;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private http: HttpClient,
+              private questionsService: QuestionsService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -22,6 +27,17 @@ export class AppComponent implements OnInit, OnDestroy {
       password: ['', this.passWordValidator]
     });
 
+    this.http.get('assets/test.json', {responseType: 'json'})
+      .subscribe(data => {
+        this.questions = [];
+
+        for (let i = 0; i < (data as Array<string>).length; i++) {
+          const question = new Question();
+          question.id = i + 1;
+          question.text = data[i];
+          this.questions.push(question);
+        }
+      });
   }
 
   pageEventHandler($event: any) {
@@ -33,7 +49,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   goToPage1() {
-    if (this.startForm.get('password').value === this.rightPassword){
+    this.questionsService.questionsReplaySubject.next(this.questions);
+    if (this.startForm.get('password').value === this.rightPassword) {
       this.pageToShow = 1;
     }
   }

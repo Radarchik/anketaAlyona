@@ -1,5 +1,16 @@
 <div class="mainPage2">
-  <div class="leftPage2"><img id="girl" src="assets/girl.jpg"></div>
+  <div class="leftPage2">
+    <div class="go-back-wrapper">
+      <button mat-stroked-button class="go-back-button"
+              (click)="goToPage1()">
+        <div class="go-back-div">
+          <mat-icon>arrow_back_ios</mat-icon>
+          <span class="go-back-text">Назад</span>
+        </div>
+      </button>
+    </div>
+    <img id="girl" src="/assets/girl.jpg">
+  </div>
 
   <div class="rightPage2">
     <div class="example-container mat-elevation-z8">
@@ -28,13 +39,13 @@
               <mat-header-cell *matHeaderCellDef> Балы </mat-header-cell>
               <mat-cell *matCellDef="let question;">
                 <span class="mobile-label">Балы:</span>
-                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-                  <mat-button-toggle value="0" (change)="onValChange($event.value, question)">0</mat-button-toggle>
-                  <mat-button-toggle value="1" (change)="onValChange($event.value, question)">1</mat-button-toggle>
-                  <mat-button-toggle value="2" (change)="onValChange($event.value, question)">2</mat-button-toggle>
-                  <mat-button-toggle value="3" (change)="onValChange($event.value, question)">3</mat-button-toggle>
-                  <mat-button-toggle value="4" (change)="onValChange($event.value, question)">4</mat-button-toggle>
-                  <mat-button-toggle value="5" (change)="onValChange($event.value, question)">5</mat-button-toggle>
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" value="{{question.estimate}}">
+                  <mat-button-toggle value=0 (change)="onValChange($event.value, question)">0</mat-button-toggle>
+                  <mat-button-toggle value=1 (change)="onValChange($event.value, question)">1</mat-button-toggle>
+                  <mat-button-toggle value=2 (change)="onValChange($event.value, question)">2</mat-button-toggle>
+                  <mat-button-toggle value=3 (change)="onValChange($event.value, question)">3</mat-button-toggle>
+                  <mat-button-toggle value=4 (change)="onValChange($event.value, question)">4</mat-button-toggle>
+                  <mat-button-toggle value=5 (change)="onValChange($event.value, question)">5</mat-button-toggle>
                 </mat-button-toggle-group>
 
               </mat-cell>
