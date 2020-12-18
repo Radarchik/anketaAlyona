@@ -13,8 +13,8 @@
   </div>
 
   <div class="rightPage2">
-    <div class="example-container mat-elevation-z8">
-          <mat-table #table [dataSource]="dataSource" [class.isMobile]="isMobile">
+<!--    <div class="example-container mat-elevation-z8">-->
+          <mat-table #table [dataSource]="dataSource" [class.isMobile]="isMobile" class="mat-elevation-z8">
 
             <!-- Position Column -->
             <ng-container matColumnDef="number">
@@ -30,7 +30,12 @@
               <mat-header-cell *matHeaderCellDef><span class="header-center">Вопрос</span> </mat-header-cell>
               <mat-cell *matCellDef="let question;">
                 <div class="mobile-label">Вопрос:</div>
-                <span class="question-text">{{question.text}}</span>
+                <span class="question-text" *ngIf="!question.isOwn">{{question.text}}</span>
+                <mat-form-field appearance="outline" autocomplete="off" *ngIf="question.isOwn" class="no-padding">
+                  <mat-label>Заполни свой вариант:</mat-label>
+                  <input matInput  autocomplete="off" (change)="onInputChange($event.target.value, question)" value="{{question.text}}">
+                </mat-form-field>
+
               </mat-cell>
             </ng-container>
 
@@ -68,7 +73,7 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
           </mat-table>
-    </div>
+    <!--</div>-->
     <mat-paginator [pageSizeOptions]="[5]" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
   </div>
 </div>

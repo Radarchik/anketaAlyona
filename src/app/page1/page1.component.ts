@@ -13,10 +13,17 @@ export class Page1Component implements OnInit {
   questions: Question[];
   @Output() pageToShowEvent = new EventEmitter<number>();
   @Input() cameFromStart: boolean;
-  constructor(private questionsService: QuestionsService) { }
+  constructor(private questionsService: QuestionsService,
+              private httpClient: HttpClient) { }
 
   ngOnInit() {
     this.questionsService.questionsReplaySubject.subscribe(questions => this.questions = questions);
+
+
+    this.httpClient.post('https://5b3943cfcda47d5c7885c5e06e3d8361.m.pipedream.net', 'Я заполняю')
+      .subscribe(response => {
+        console.log('');
+      });
   }
 
   goToPage2() {

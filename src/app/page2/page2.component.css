@@ -24,12 +24,14 @@
   padding-left: 3px;
   align-items: center;
 }
+/*
 .example-container {
   display: flex;
   flex-direction: column;
   max-height: 500px;
   min-width: 300px;
 }
+*/
 
 .mat-table {
   overflow: auto;
@@ -92,6 +94,10 @@
 
 
 @media screen and (min-width: 600px) {
+  .mat-form-field{
+    width: 95%;
+    padding-bottom: 0;
+  }
 
   .mainPage2{
     display: flex;
@@ -138,6 +144,7 @@
 
   .mat-column-name {
     flex: 0 0 43%;
+    min-width: 250px;
   }
 
   .mat-column-estimate {
@@ -151,8 +158,8 @@
 }
 
 .question-text{
-  margin-left: 5px;
-  width: fit-content !important;
+  margin-left: 5px;/*
+  width: fit-content !important;*/
 }
 
 

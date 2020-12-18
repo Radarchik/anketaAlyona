@@ -22,7 +22,7 @@ export class Page2Component implements OnInit, AfterViewInit  {
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private http: HttpClient,
+    private httpClient: HttpClient,
     private questionsService: QuestionsService) { }
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
@@ -33,6 +33,7 @@ export class Page2Component implements OnInit, AfterViewInit  {
 
   ngOnInit() {
     this.questionsService.questionsReplaySubject.subscribe(questions => {
+      console.log(questions);
       this.questions = questions;
       setTimeout(() => {
         this.dataSource = new MatTableDataSource(questions);
@@ -42,9 +43,11 @@ export class Page2Component implements OnInit, AfterViewInit  {
   }
 
   sendResult() {
-    if (this.questions.every(question => question.estimate)) {
+    const commonQuestions = this.questions.filter(q => q.isOwn === false);
+    const ownQuestions = this.questions.filter(q => q.isOwn);
+    if (commonQuestions.every(question => question.estimate) && ownQuestions.every(q => q.text)) {
       const body = JSON.stringify(this.questions);
-      this.http.post('https://5b3943cfcda47d5c7885c5e06e3d8361.m.pipedream.net', body)
+      this.httpClient.post('https://5b3943cfcda47d5c7885c5e06e3d8361.m.pipedream.net', body)
         .subscribe(response => {
           const message = 'Анкету получил. Готовь попку, детка))';
           const action = 'Успешно!';
@@ -66,7 +69,8 @@ export class Page2Component implements OnInit, AfterViewInit  {
   }
 
   openSnackBar() {
-    const unsignedQ = this.questions.filter(question => question.estimate === undefined);
+    const unsignedQ = this.questions.filter(question => (!question.isOwn && question.estimate === undefined) ||
+    question.isOwn && question.text === '');
     const message = 'Остались вопросы: ' + unsignedQ.map(q => q.id);
     const action = 'Attention';
     this.snackBar.open(message, action, {
@@ -94,5 +98,9 @@ export class Page2Component implements OnInit, AfterViewInit  {
   goToPage1() {
     this.questionsService.questionsReplaySubject.next(this.questions);
     this.pageToShowEvent.emit(1);
+  }
+
+  onInputChange(value: any, question: Question) {
+    question.text = value;
   }
 }

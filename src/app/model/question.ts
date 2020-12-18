@@ -3,4 +3,5 @@ export class Question {
   text: string;
   estimate: number;
   comment: string;
+  isOwn: boolean;
 }
