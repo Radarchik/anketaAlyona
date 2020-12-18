@@ -29,7 +29,7 @@
             <ng-container matColumnDef="name">
               <mat-header-cell *matHeaderCellDef><span class="header-center">Вопрос</span> </mat-header-cell>
               <mat-cell *matCellDef="let question;">
-                <div class="mobile-label">Вопрос:</div>
+                <div class="mobile-label">Действие:</div>
                 <span class="question-text" *ngIf="!question.isOwn">{{question.text}}</span>
                 <mat-form-field appearance="outline" autocomplete="off" *ngIf="question.isOwn" class="no-padding">
                   <mat-label>Заполни свой вариант:</mat-label>
