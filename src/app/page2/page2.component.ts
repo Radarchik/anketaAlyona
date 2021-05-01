@@ -53,7 +53,7 @@ export class Page2Component implements OnInit, AfterViewInit  {
           const action = 'Успешно!';
           if (response) {
             this.snackBar.open(message, action, {
-              duration: 4500,
+              duration: 11500,
             });
             this.pageToShowEvent.emit(0);
           }
