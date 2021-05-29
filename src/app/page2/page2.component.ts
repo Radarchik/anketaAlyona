@@ -55,13 +55,12 @@ export class Page2Component implements OnInit, AfterViewInit  {
             this.snackBar.open(message, action, {
               duration: 11500,
             });
-            this.pageToShowEvent.emit(0);
+            this.pageToShowEvent.emit(3);
           }
         });
     } else {
       this.openSnackBar();
     }
-
   }
 
   onValChange(value: any, question: Question) {

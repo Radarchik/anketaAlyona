@@ -10,13 +10,15 @@ import {MAT_DIALOG_DATA, MatPaginatorModule, MatTableModule} from '@angular/mate
 import { HttpClientModule } from '@angular/common/http';
 import { CommentDialogComponent } from './comment-dialog/comment-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { PageEndComponent } from './page-end/page-end.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Page1Component,
     Page2Component,
-    CommentDialogComponent
+    CommentDialogComponent,
+    PageEndComponent
   ],
   imports: [
     BrowserModule,
