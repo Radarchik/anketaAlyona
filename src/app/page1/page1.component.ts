@@ -26,6 +26,7 @@ export class Page1Component implements OnInit {
       });
   }
 
+
   goToPage2() {
     this.questionsService.questionsReplaySubject.next(this.questions);
     this.pageToShowEvent.emit(2);
