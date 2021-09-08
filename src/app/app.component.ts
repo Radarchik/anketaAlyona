@@ -10,7 +10,7 @@ import {QuestionsService} from './questions.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public title = 'anketaEkaterina';
+  public title = 'anketaYulia';
   startForm: FormGroup;
   questions: Question[];
   rightPassword = '777333';
